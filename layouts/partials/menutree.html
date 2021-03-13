@@ -1,0 +1,15 @@
+<!-- define new template -->
+{{ define "menutree" }}
+    <ol>
+        {{ range .p1 }}
+        <li><a href="{{ .Permalink }}">{{ .Title }}</a>
+            {{ if .IsAncestor .CurrentSection }}
+            {{ template "menutree" (dict "p1" .CurrentSection.Pages )}}
+            {{ end }}
+        </li>
+        {{ end }}
+    </ol>
+{{ end }}
+
+<!-- use the template -->
+{{ template "menutree" (dict "p1" .FirstSection.Pages )}}
